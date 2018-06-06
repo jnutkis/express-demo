@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const methodOverride = require('method-override');
+const path = require('path');
 
 //MethodOverride Middlware
 router.use(methodOverride('_method'));
@@ -12,12 +13,17 @@ router.use(express.json());
 //Item Schema
 const Item = mongoose.model('items');
 
+//Get Items
 router.get('/', (req, res) => {
+  req.headers['james'] = 'is a beast';
+  console.log(req.headers.james);
+
   Item.find({}).then(data => {
     const names = [];
     data.forEach(item => {
       names.push(item);
     });
+
     res.render('mongoose/index', {
       names: names
     });
