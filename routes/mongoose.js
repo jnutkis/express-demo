@@ -15,14 +15,16 @@ const Item = mongoose.model('items');
 
 //Get Items
 router.get('/', (req, res) => {
-  req.headers['james'] = 'is a beast';
-  console.log(req.headers.james);
+  res.set('james', 'is a beast');
+  console.log(req.headers);
 
   Item.find({}).then(data => {
     const names = [];
     data.forEach(item => {
       names.push(item);
     });
+
+    console.log(res.locals.user);
 
     res.render('mongoose/index', {
       names: names
