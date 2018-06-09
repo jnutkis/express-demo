@@ -8,6 +8,7 @@ const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const config = require('config');
+const startupDebugger = require('debug')('app:startup');
 
 //Dotenv Middleware
 require('dotenv').config({ path: './secrets.env' });
@@ -25,7 +26,7 @@ app.use(helmet());
 if (app.get('env') === 'development') {
   //Morgan Middleware
   app.use(morgan('tiny'));
-  console.log('Morgan Enabled');
+  startupDebugger('Morgan Enabled');
 }
 
 //Config

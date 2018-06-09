@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/new', (req, res) => {
   //Validate Forms using Joi
   const schema = {
     name: Joi.string()
@@ -56,14 +56,14 @@ router.post('/', (req, res) => {
   new Item(itemData)
     .save()
     .then(data => {
-      res.redirect('/');
+      res.redirect('/mongoose');
     })
     .catch(e => {
       throw e;
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/item/:id', (req, res) => {
   //Validate Forms using Joi
   const schema = {
     name: Joi.string()
@@ -93,7 +93,7 @@ router.put('/:id', (req, res) => {
       data: req.body.data
     })
     .then(data => {
-      res.redirect(`/mongoose/${req.params.id}`);
+      res.redirect(`/mongoose/item/${req.params.id}`);
     })
     .catch(e => {
       throw e;
@@ -101,7 +101,7 @@ router.put('/:id', (req, res) => {
 });
 
 //Get One Item
-router.get('/:id', (req, res) => {
+router.get('/item/:id', (req, res) => {
   Item.findOne({ _id: req.params.id })
     .then(data => {
       res.render('mongoose/item', {
@@ -112,7 +112,7 @@ router.get('/:id', (req, res) => {
 });
 
 //Delete One Item
-router.delete('/:id', (req, res) => {
+router.delete('/item/:id', (req, res) => {
   //Find Item
   Item.findByIdAndRemove(req.params.id)
     .then(data => {
@@ -122,6 +122,11 @@ router.delete('/:id', (req, res) => {
       console.log(e);
       res.send(e);
     });
+});
+
+//Create New Item
+router.get('/new', (req, res) => {
+  res.render('mongoose/new');
 });
 
 module.exports = router;

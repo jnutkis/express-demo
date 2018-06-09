@@ -1,3 +1,10 @@
+<div class="row floating-button">
+  <div class="col s12">
+    <a href="/mongoose/new" class="btn-floating btn-large right blue waves-effect waves-light">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+</div>
 <div class="row">
   {{#each names}}
   <div class="col s12 m12 l6">
@@ -7,8 +14,8 @@
         <p>{{this.data}}</p>
       </div>
       <div class="card-action">
-        <form method="POST" action="/mongoose/{{this.id}}?_method=DELETE">
-          <a href="/mongoose/{{this.id}}" class="btn waves-effect waves-light blue-grey">See Item</a>
+        <form method="POST" action="/mongoose/item/{{this.id}}?_method=DELETE">
+          <a href="/mongoose/item/{{this.id}}" class="btn waves-effect waves-light blue-grey">See Item</a>
           <button type="submit" class="btn red darken-2 waves-effect waves-light right">Delete</button>
         </form>
       </div>

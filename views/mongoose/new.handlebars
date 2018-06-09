@@ -1,0 +1,22 @@
+<div class="row col s12">
+  <form action="/mongoose/new" method="POST" class="form">
+    <h5 class="title center-align">Add New Item</h5>
+    <div class="input-field col s6">
+      <input id="title" type="text" class="validate" name="name">
+      <label for="title">Title</label>
+    </div>
+    <div class="input-field col s12">
+      <textarea id="data" class="materialize-textarea" name="data"></textarea>
+      <label for="data">Information</label>
+    </div>
+    <div class="clearfix"></div>
+    <div class="submit-button">
+      <input class="btn blue" type="submit" value="Submit">
+    </div>
+
+  </form>
+  <a href="/mongoose" class="btn red">
+    <i class="material-icons left">keyboard_backspace</i>
+    Return
+  </a>
+</div>
