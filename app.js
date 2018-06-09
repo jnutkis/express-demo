@@ -12,7 +12,7 @@ const config = require('config');
 //Dotenv Middleware
 require('dotenv').config({ path: './secrets.env' });
 
-//Response Vars
+//Response Local Vars
 app.use(function(req, res, next) {
   res.locals.user = 'James Nutkis';
   res.locals.authenticated = false;
@@ -29,9 +29,9 @@ if (app.get('env') === 'development') {
 }
 
 //Config
-console.log('Application Name ' + config.get('name'));
-console.log('Application Mail ' + config.get('mail.host'));
-console.log('Mail Password ' + config.get('mail.password'));
+// console.log('Application Name ' + config.get('name'));
+// console.log('Application Mail ' + config.get('mail.host'));
+// console.log('Mail Password ' + config.get('mail.password'));
 
 //Schema Import
 require('./models/Item');
@@ -72,7 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 
 //Custom Middleware
-require('./helpers/headers')(app);
+// require('./helpers/headers')(app);
 
 const courses = [
   { id: 1, name: 'Course 1' },
