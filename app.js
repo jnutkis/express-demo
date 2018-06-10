@@ -36,10 +36,12 @@ if (app.get('env') === 'development') {
 
 //Schema Import
 require('./models/Item');
+require('./models/User');
 const Item = mongoose.model('items');
 
 //Route Import
 const mongRoute = require('./routes/mongoose');
+const userRoute = require('./routes/users');
 
 //DB Info Import
 const dbConfig = require('./config/db');
@@ -165,6 +167,7 @@ app.get('/api/courses/:id', (req, res) => {
 
 // Routes
 app.use('/mongoose', mongRoute);
+app.use('/user', userRoute);
 
 // PORT
 const port = process.env.PORT || 3000;

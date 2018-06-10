@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "config": "^1.30.0",
     "debug": "^3.1.0",
     "dotenv": "^6.0.0",
