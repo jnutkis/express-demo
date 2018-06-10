@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const checkAuth = require('../helpers/checkAuth');
 
 //Import User Schema
 const User = mongoose.model('users');
@@ -16,7 +18,8 @@ router.post('/signup', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(data => {
       if (data) {
-        return res.send('User Exists');
+        req.flash('error', 'Email is already taken');
+        res.redirect('/user/login');
       } else {
         //Joi Schema
         const schema = {
@@ -80,5 +83,19 @@ router.post('/signup', (req, res) => {
     .catch(e => res.send(e));
   //End Check for Email
 });
+
+router.get('/login', checkAuth, (req, res) => {
+  res.render('user/login');
+});
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/mongoose/welcome',
+    failureRedirect: '/user/login',
+    failureFlash: true
+  }),
+  (req, res, next) => {}
+);
 
 module.exports = router;

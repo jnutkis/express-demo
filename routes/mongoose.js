@@ -129,4 +129,9 @@ router.get('/new', (req, res) => {
   res.render('mongoose/new');
 });
 
+router.get('/welcome', (req, res) => {
+  req.flash('success', `Welcome ${req.user.firstName} ${req.user.lastName}`);
+  res.redirect('/mongoose');
+});
+
 module.exports = router;

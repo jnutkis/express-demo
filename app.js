@@ -9,14 +9,28 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const config = require('config');
 const startupDebugger = require('debug')('app:startup');
+const passport = require('passport');
+const session = require('express-session');
+const flash = require('connect-flash');
+
+//Express Session Middleware
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+//Flash Middleware
+app.use(flash());
 
 //Dotenv Middleware
 require('dotenv').config({ path: './secrets.env' });
 
 //Response Local Vars
 app.use(function(req, res, next) {
-  res.locals.user = 'James Nutkis';
-  res.locals.authenticated = false;
+  res.locals.user = req.user || null;
   next();
 });
 
@@ -73,6 +87,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //jQuery Static
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+
+//Passport Middleware
+require('./config/passport')();
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Response Local Vars
+app.use(function(req, res, next) {
+  res.locals.user = req.user || null;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
+});
 
 //Custom Middleware
 // require('./helpers/headers')(app);
