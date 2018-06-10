@@ -11,16 +11,8 @@ const config = require('config');
 const startupDebugger = require('debug')('app:startup');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
-
-//Express Session Middleware
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
 
 //Flash Middleware
 app.use(flash());
@@ -65,6 +57,18 @@ const dbConfig = require('./config/db');
 mongoose.connect(dbConfig.mongoURI, () => {
   console.log(`DB Connected`);
 });
+
+//Express Session Middleware
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({
+      url: dbConfig.mongoURI
+    })
+  })
+);
 
 //Bodyparser Middlware
 app.use(express.json());
