@@ -65,7 +65,8 @@ app.use(
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
-      url: dbConfig.mongoURI
+      url: dbConfig.mongoURI,
+      ttl: 08 * 60 * 60 //8 hours
     })
   })
 );
